@@ -1,0 +1,3 @@
+El algoritmo knn(k near neighbours), es un método de clasificación que sirve para estimar a que tipo pertenece cada variable
+según la funcion de densidad. Toma una variable y segun sus características, las compara con el resto de constantes ya registradas
+en la base de datos y estima a que grupo pertenece mediante un reconocimiento de patrones
