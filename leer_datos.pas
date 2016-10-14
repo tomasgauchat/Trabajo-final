@@ -1,5 +1,5 @@
 program iris;
-uses crt;
+uses crt, math;
 type registro = record
                     Sepal_Length : real;
                     Sepal_Width : real;
@@ -12,19 +12,28 @@ type registro = record
 var flor : array [1..120] of registro;
                 
     testeo : array [1..30] of registro;
+    d1: registro;
     datos : file of registro;
     r : registro;
     i : integer;
+    j : integer;
     especies : string;
     c : Integer;
     s : integer;
     ve : integer;
     vi : integer;
     total : Integer;
+    x: real;
+    y:real;
+    dist: array[1..120] of real;
+const k = 3;
     {setosa : string;
     virginica : String;
     versicolor : String;}
-    
+function distancia(x:real; y: real):real;
+    begin
+     dist[i] := sqrt(power((x-(d1.Petal_Length))2 + (y-(d1.Petal_Width)):2 ));
+    end;//fin de la funcion distancia
 
 begin
 c := 1;
@@ -117,5 +126,14 @@ end;//final del while
     writeln(i, ' ', flor[i].Species,' ', flor[i].Petal_Length,' ', flor[i].Petal_Width);
      readkey();
  end;
-   
+///////////////////////////////////////segunda parte/////////////////////////////////////
+for i:= 1 to 30 do
+d1 := testeo[i];
+
+
+for i:= 1 to k do
+  for j:= i+1 to 120 do
+
+
+
 end.
