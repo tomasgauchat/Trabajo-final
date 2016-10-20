@@ -23,17 +23,25 @@ var flor : array [1..120] of registro;
     ve : integer;
     vi : integer;
     total : Integer;
-    x: real;
+    x: real;//variables para segunda parte
     y:real;
+    aux1: registro;
+    aux2: real;
     dist: array[1..120] of real;
 const k = 3;
-    {setosa : string;
-    virginica : String;
-    versicolor : String;}
-function distancia(x:real; y: real):real;
+ 
+function distancia(r : registro; x:real; y: real):real;
     begin
-     dist[i] := sqrt(power((x-(d1.Petal_Length))2 + (y-(d1.Petal_Width)):2 ));
+     distancia :=sqrt(
+                        power(x - r.Petal_Length,2) 
+                        + 
+                        power((y - r.Petal_Width),2)
+                    );
+     
     end;//fin de la funcion distancia
+
+
+  
 
 begin
 c := 1;
@@ -114,7 +122,7 @@ begin
 end;//final del while
 
     close(datos);
- 
+ {
  for i:= 1 to 30 do
  begin
     writeln(i, ' ', testeo[i].Species,' ', testeo[i].Petal_Length,' ', testeo[i].Petal_Width);
@@ -126,14 +134,82 @@ end;//final del while
     writeln(i, ' ', flor[i].Species,' ', flor[i].Petal_Length,' ', flor[i].Petal_Width);
      readkey();
  end;
+ }
 ///////////////////////////////////////segunda parte/////////////////////////////////////
-for i:= 1 to 30 do
-d1 := testeo[i];
+{for i:= 1 to 30 do
+d1 := testeo[i];}
+  writeln('escriba x, y');
+  readln(x);
+  readln(y);
+  for i :=1 to 120 do
+  begin
+  
+        dist[i] := distancia(flor[i], x, y);
+  end;
 
 
 for i:= 1 to k do
   for j:= i+1 to 120 do
+  begin
+    if dist[i] > dist[j] then
+      begin
+      aux2:= dist[i];
+      dist[i]:= dist[j];
+      dist[j] := aux2;
+     aux1:= flor[i];
+     flor[i]:= flor[j];
+     flor[j]:= aux1;
+     
+      end;
+      
+  end;//final ordenamiento
+s:= 0;
+ve:= 0;
+vi:=0;
 
+  for i:= 1 to k do
+  begin
+        if flor[i].Species = 'setosa' then
+        begin
+        s:= s + 1;
+        end;
+
+        if flor[i].Species= 'virginica' then
+        begin
+        vi:= vi + 1;
+        end;
+        if flor[i].Species= 'versicolor' then
+        begin
+        ve:= ve + 1;
+        end;//final llenar contadores
+end;
+        if ve > vi then
+        begin
+                if ve > s then
+                        begin
+                        writeln('versicolor');
+                        end
+                else
+                        begin
+                        writeln('setosa');
+                        end
+        end
+        else
+        begin
+                if vi > s then
+                        begin
+                        writeln('virginica');
+                        end
+                else
+                        begin
+                        writeln('setosa');
+                        end
+        end;
+
+
+        
+     
+  
 
 
 end.
