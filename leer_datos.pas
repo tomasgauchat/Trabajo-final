@@ -7,11 +7,8 @@ type registro = record
                     Petal_Width : real;
                     Species : string;
                     end;
-
-
 var flor : array [1..120] of registro;
-                
-    testeo : array [1..30] of registro;
+     testeo : array [1..30] of registro;
     d1: registro;
     datos : file of registro;
     r : registro;
@@ -25,24 +22,88 @@ var flor : array [1..120] of registro;
     total : Integer;
     x: real;//variables para segunda parte
     y:real;
+    bien:real;
     aux1: registro;
     aux2: real;
     dist: array[1..120] of real;
+    resultado: string;
 const k = 3;
- 
-function distancia(r : registro; x:real; y: real):real;
+ function distancia(r : registro; x:real; y: real):real;
     begin
      distancia :=sqrt(
                         power(x - r.Petal_Length,2) 
                         + 
                         power((y - r.Petal_Width),2)
                     );
-     
-    end;//fin de la funcion distancia
-
-
+     end;//fin de la funcion distancia
+ function res (x:real; y:real):string;
+ var i : integer;
+ begin
+  for i :=1 to 120 do
+  begin
   
+        dist[i] := distancia(flor[i], x, y);
+  end;
 
+
+for i:= 1 to k do
+  for j:= i+1 to 120 do
+  begin
+    if dist[i] > dist[j] then
+      begin
+      aux2:= dist[i];
+      dist[i]:= dist[j];
+      dist[j] := aux2;
+     aux1:= flor[i];
+     flor[i]:= flor[j];
+     flor[j]:= aux1;
+     
+      end;
+      
+  end;//final ordenamiento
+s:= 0;
+ve:= 0;
+vi:=0;
+
+  for i:= 1 to k do
+  begin
+        if flor[i].Species = 'setosa' then
+        begin
+        s:= s + 1;
+        end;
+
+        if flor[i].Species= 'virginica' then
+        begin
+        vi:= vi + 1;
+        end;
+        if flor[i].Species= 'versicolor' then
+        begin
+        ve:= ve + 1;
+        end;//final llenar contadores
+end;
+        if ve > vi then
+        begin
+                if ve > s then
+                        begin
+                        res := 'versicolor';
+                        end
+                else
+                        begin
+                        res := 'setosa';
+                        end
+        end
+        else
+        begin
+                if vi > s then
+                        begin
+                        res := 'virginica';
+                        end
+                else
+                        begin
+                        res :='setosa';
+                        end
+        end;                
+        end;///////////////////////final funcion res
 begin
 c := 1;
 s := 1;
@@ -52,9 +113,7 @@ total := 1;
 i := 1;
 Assign(datos, 'iris.dat');
 Reset(datos);
-
-
- while not eof(datos) do
+while not eof(datos) do
   begin
     read(datos, r);
     if (r.species) = 'setosa' then
@@ -75,7 +134,6 @@ Reset(datos);
      end;//final if
 
     end;//final while
-
 /////////////////////////////////////////////////////////
 reset(datos);
 while not eof(datos) do
@@ -138,78 +196,30 @@ end;//final del while
 ///////////////////////////////////////segunda parte/////////////////////////////////////
 {for i:= 1 to 30 do
 d1 := testeo[i];}
-  writeln('escriba x, y');
+
+  ////////
+  {writeln('escriba x, y');
   readln(x);
-  readln(y);
-  for i :=1 to 120 do
-  begin
+  readln(y);////////parte 3///////////////
+  resultado:= res(x,y);
+      writeln(resultado);}
   
-        dist[i] := distancia(flor[i], x, y);
-  end;
-
-
-for i:= 1 to k do
-  for j:= i+1 to 120 do
-  begin
-    if dist[i] > dist[j] then
-      begin
-      aux2:= dist[i];
-      dist[i]:= dist[j];
-      dist[j] := aux2;
-     aux1:= flor[i];
-     flor[i]:= flor[j];
-     flor[j]:= aux1;
-     
-      end;
+  for i:= 1 to 30 do
+    begin
+      x := testeo[i].Petal_Length;
+      y := testeo[i].Petal_Width;
       
-  end;//final ordenamiento
-s:= 0;
-ve:= 0;
-vi:=0;
-
-  for i:= 1 to k do
-  begin
-        if flor[i].Species = 'setosa' then
-        begin
-        s:= s + 1;
+      writeln(i,x,y, testeo[i].Species);
+      resultado:= res(x,y);
+      writeln(resultado);
+      readkey();
+      if testeo[i].Species = resultado then
+        begin   
+          bien := bien+1;
         end;
-
-        if flor[i].Species= 'virginica' then
-        begin
-        vi:= vi + 1;
-        end;
-        if flor[i].Species= 'versicolor' then
-        begin
-        ve:= ve + 1;
-        end;//final llenar contadores
-end;
-        if ve > vi then
-        begin
-                if ve > s then
-                        begin
-                        writeln('versicolor');
-                        end
-                else
-                        begin
-                        writeln('setosa');
-                        end
-        end
-        else
-        begin
-                if vi > s then
-                        begin
-                        writeln('virginica');
-                        end
-                else
-                        begin
-                        writeln('setosa');
-                        end
-        end;
-
-
-        
-     
-  
-
+    end;
+writeln('El porcentaje es');
+writeln((bien * 100)/30  :3:2);
+ Readkey();
 
 end.
