@@ -27,13 +27,14 @@ var flor : array [1..120] of registro;
     aux2: real;
     dist: array[1..120] of real;
     resultado: string;
+    menu: integer;
 const k = 3;
  function distancia(r : registro; x:real; y: real):real;
     begin
      distancia :=sqrt(
-                        power(x - r.Petal_Length,2) 
+                        power(x - r.Petal_Width,2) 
                         + 
-                        power((y - r.Petal_Width),2)
+                        power((y - r.Petal_Length),2)
                     );
      end;//fin de la funcion distancia
  function res (x:real; y:real):string;
@@ -206,20 +207,43 @@ d1 := testeo[i];}
   
   for i:= 1 to 30 do
     begin
-      x := testeo[i].Petal_Length;
-      y := testeo[i].Petal_Width;
+      x := testeo[i].Petal_Width;
+      y := testeo[i].Petal_Length;
       
-      writeln(i,x,y, testeo[i].Species);
+     // writeln(i,x,y, testeo[i].Species);
       resultado:= res(x,y);
-      writeln(resultado);
-      readkey();
+      //writeln(resultado);
+     // readkey();
       if testeo[i].Species = resultado then
         begin   
           bien := bien+1;
         end;
     end;
-writeln('El porcentaje es');
+
+
+repeat
+writeln('opcion 1: tomar nuevo dato');
+writeln('opcion 2: porcentaje de acierto');
+writeln('opcion 3:salir del programa');
+readln(menu);
+if menu = 1 then
+begin
+ 
+ writeln('escriba x, y');
+  readln(x);
+  readln(y);
+  resultado:= res(x,y);
+      writeln(resultado);
+  readkey();
+end//primer if
+ else
+ if menu = 2 then
+ begin
+   writeln('El porcentaje es');
 writeln((bien * 100)/30  :3:2);
- Readkey();
+readkey();
+ end;//final opcion 2
+ clrscr();
+until menu = 3
 
 end.
