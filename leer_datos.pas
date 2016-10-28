@@ -8,7 +8,7 @@ type registro = record
                     Species : string;
                     end;
 var flor : array [1..120] of registro;
-     testeo : array [1..30] of registro;
+    testeo : array [1..30] of registro;
     d1: registro;
     datos : file of registro;
     r : registro;
@@ -52,12 +52,12 @@ for i:= 1 to k do
   begin
     if dist[i] > dist[j] then
       begin
-      aux2:= dist[i];
-      dist[i]:= dist[j];
-      dist[j] := aux2;
-     aux1:= flor[i];
-     flor[i]:= flor[j];
-     flor[j]:= aux1;
+        aux2:= dist[i];
+        dist[i]:= dist[j];
+        dist[j] := aux2;
+        aux1:= flor[i];
+        flor[i]:= flor[j];
+        flor[j]:= aux1;
      
       end;
       
@@ -68,20 +68,20 @@ vi:=0;
 
   for i:= 1 to k do
   begin
-        if flor[i].Species = 'setosa' then
+    if flor[i].Species = 'setosa' then
         begin
-        s:= s + 1;
+            s:= s + 1;
         end;
 
-        if flor[i].Species= 'virginica' then
+            if flor[i].Species= 'virginica' then
+                begin
+                    vi:= vi + 1;
+                end;
+            if flor[i].Species= 'versicolor' then
         begin
-        vi:= vi + 1;
-        end;
-        if flor[i].Species= 'versicolor' then
-        begin
-        ve:= ve + 1;
+            ve:= ve + 1;
         end;//final llenar contadores
-end;
+  end;
         if ve > vi then
         begin
                 if ve > s then
@@ -198,23 +198,16 @@ end;//final del while
 {for i:= 1 to 30 do
 d1 := testeo[i];}
 
-  ////////
-  {writeln('escriba x, y');
-  readln(x);
-  readln(y);////////parte 3///////////////
-  resultado:= res(x,y);
-      writeln(resultado);}
+  ////////////////parte 3///////////////
+  
   
   for i:= 1 to 30 do
     begin
       x := testeo[i].Petal_Width;
       y := testeo[i].Petal_Length;
-      
-     // writeln(i,x,y, testeo[i].Species);
       resultado:= res(x,y);
-      //writeln(resultado);
-     // readkey();
-      if testeo[i].Species = resultado then
+     
+       if testeo[i].Species = resultado then
         begin   
           bien := bien+1;
         end;
@@ -222,10 +215,10 @@ d1 := testeo[i];}
 
 
 repeat
-writeln('opcion 1: tomar nuevo dato');
-writeln('opcion 2: porcentaje de acierto');
-writeln('opcion 3:salir del programa');
-readln(menu);
+    writeln('opcion 1: tomar nuevo dato');
+    writeln('opcion 2: porcentaje de acierto');
+    writeln('opcion 3:salir del programa');
+    readln(menu);
 if menu = 1 then
 begin
  
@@ -237,12 +230,12 @@ begin
   readkey();
 end//primer if
  else
- if menu = 2 then
- begin
-   writeln('El porcentaje es');
-writeln((bien * 100)/30  :3:2);
-readkey();
- end;//final opcion 2
+  if menu = 2 then
+   begin
+    writeln('El porcentaje es');
+    writeln((bien * 100)/30  :3:2);
+    readkey();
+   end;//final opcion 2
  clrscr();
 until menu = 3
 
